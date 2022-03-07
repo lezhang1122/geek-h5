@@ -1,0 +1,9 @@
+@import "~@css/hairline.scss";
+
+.hairline {
+  position: relative;
+  @include hairline(bottom, #ccc); }
+
+.border1 {
+  border-bottom: 1px solid #ccc;
+}
