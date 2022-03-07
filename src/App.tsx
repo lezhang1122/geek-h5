@@ -7,8 +7,6 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Link to="/home">跳转首页</Link>
-        <Link to="/login">跳转登陆页</Link>
         <Switch>
           <Redirect exact from="/" to="/home" />
           <Route path="/home" component={Layout} />
