@@ -14,8 +14,6 @@ export const login =
       });
     };
 
-export const getCode = (mobile: string): RootThunkAction => {
-    return async () => {
-        await request.get(`/sms/codes/${mobile}`) // 验证码发送到手机上
-    }
-}
+export const getCode = (mobile: string): RootThunkAction => async () => {
+  await request.get(`/sms/codes/${mobile}`); // 验证码发送到手机上
+};

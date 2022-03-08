@@ -1,6 +1,6 @@
-import { Token } from "@/types/data";
-import { LoginAction } from "@/types/store"
-import { getToken } from "@/utils/storage";
+import { Token } from '@/types/data';
+import { LoginAction } from '@/types/store';
+import { getToken } from '@/utils/storage';
 
 const initialState: Token = getToken();
 
@@ -11,6 +11,6 @@ const login = (state: Token = initialState, action: LoginAction) => {
     default:
       return state;
   }
-}
+};
 
-export default login
+export default login;

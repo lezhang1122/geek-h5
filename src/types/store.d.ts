@@ -5,7 +5,7 @@ export type RootState = ReturnType<typeof store.getState>;
 
 type LoginAction = {
   type: 'login/token';
-  payload: any
+  payload: any;
 };
 type RootAction = LoginAction;
 
