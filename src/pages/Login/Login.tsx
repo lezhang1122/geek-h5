@@ -1,14 +1,14 @@
 import { Button, NavBar, Form, Input, List } from 'antd-mobile';
+import { RootState } from '@/types/store';
+import { useSelector } from 'react-redux';
 
 import styles from './index.module.scss';
-type FormState = {
-  mobile: string;
-  code: string
-};
+
 const Login = () => {
-  const submitHandle = (values: FormState) => {
+  const submitHandle = (values: LoginForm) => {
     console.log(values, 'values')
   };
+  // useSelector((state: RootState) => state.login)
   return (
     <div className={styles.root}>
       <NavBar />
