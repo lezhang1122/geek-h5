@@ -29,7 +29,7 @@ const Login = () => {
       alert(err.response?.data.message);
     }
   };
-  const sendCode = () => {
+  const sendCode = async () => {
     const hasError = form.getFieldError('mobile').length > 0;
     if (hasError) {
       mobileRef.current?.focus();
@@ -39,7 +39,7 @@ const Login = () => {
     }
     const mobile = form.getFieldValue('mobile');
     try {
-      dispatch(getCode(mobile));
+      await dispatch(getCode(mobile));
       Toast.show({ content: '验证码已发送' });
     } catch (e) {
       const err = e as AxiosError<{ message: string }>;

@@ -1,6 +1,6 @@
 // 封装axios
 import axios from 'axios';
-import { getToken, hasToken } from './storage';
+import { getToken } from './storage';
 
 const instance = axios.create({
   baseURL: 'http://geek.itheima.net/v1_0/',
