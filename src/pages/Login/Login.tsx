@@ -1,18 +1,21 @@
-import { Button, NavBar, Form, Input, List, Toast } from 'antd-mobile';
+import { Button, NavBar, Form, Input, List, Toast, Divider } from 'antd-mobile';
 import { useDispatch } from 'react-redux';
 import { getCode, login } from '@/store/actions/login';
 import { LoginForm } from '@/types/data';
 import styles from './index.module.scss';
 import { useHistory } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { InputRef } from 'antd-mobile/es/components/input';
+import useCountDown from '@/hooks/useCountDown';
 
 const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [form] = Form.useForm();
   const mobileRef = useRef<InputRef>(null);
+  const [showCountDown, setShowCountDown] = useState(false);
+  const { count, start } = useCountDown(60, () => setShowCountDown(false));
   const submitHandle = async (values: LoginForm) => {
     try {
       await dispatch(login(values));
@@ -41,6 +44,8 @@ const Login = () => {
     try {
       await dispatch(getCode(mobile));
       Toast.show({ content: '验证码已发送' });
+      setShowCountDown(true);
+      start();
     } catch (e) {
       const err = e as AxiosError<{ message: string }>;
       Toast.show({ content: err.response?.data.message });
@@ -70,8 +75,8 @@ const Login = () => {
           <List.Item
             className="login-code-extra"
             extra={(
-              <span onClick={sendCode} className="code-extra">
-                发送验证码
+              <span onClick={showCountDown ? undefined : sendCode} className="code-extra">
+                {showCountDown ? count : '发送验证码'}
               </span>
             )}
           >
