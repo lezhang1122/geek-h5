@@ -1,13 +1,15 @@
 import { Link, useHistory } from 'react-router-dom';
 import Icon from '@/components/Icon';
 import styles from './index.module.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '@/store/actions/profile';
 import { useEffect } from 'react';
+import { RootState } from '@/types/store';
 
 const Profile = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const userInfo = useSelector((state: RootState) => state.profile.userInfo);
 
   useEffect(() => {
     dispatch(getUser());
@@ -19,9 +21,9 @@ const Profile = () => {
         {/* 个人信息 */}
         <div className="user-info">
           <div className="avatar">
-            <img src={'http://toutiao.itheima.net/images/user_head.jpg'} alt="" />
+            <img src={userInfo.photo} alt="" />
           </div>
-          <div className="user-name">黑马先锋</div>
+          <div className="user-name">{userInfo.name}</div>
           <Link to="/profile/edit">
             个人信息 <Icon type="iconbtn_right" />
           </Link>
@@ -38,40 +40,20 @@ const Profile = () => {
         {/* 动态 - 对应的这一行 */}
         <div className="count-list">
           <div className="count-item">
-            <p>1</p>
+            <p>{userInfo.art_count}</p>
             <p>动态</p>
           </div>
           <div className="count-item">
-            <p>9</p>
+            <p>{userInfo.like_count}</p>
             <p>关注</p>
           </div>
           <div className="count-item">
-            <p>99</p>
+            <p>{userInfo.fans_count}</p>
             <p>粉丝</p>
           </div>
           <div className="count-item">
-            <p>200</p>
+            <p>{userInfo.follow_count}</p>
             <p>被赞</p>
-          </div>
-        </div>
-
-        {/* 消息通知 - 对应的这一行 */}
-        <div className="user-links">
-          <div className="link-item">
-            <Icon type="iconbtn_mymessages" />
-            <div>消息通知</div>
-          </div>
-          <div className="link-item">
-            <Icon type="iconbtn_mycollect" />
-            <div>收藏</div>
-          </div>
-          <div className="link-item">
-            <Icon type="iconbtn_history1" />
-            <div>浏览历史</div>
-          </div>
-          <div className="link-item">
-            <Icon type="iconbtn_myworks" />
-            <div>我的作品</div>
           </div>
         </div>
       </div>
