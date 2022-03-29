@@ -1,20 +1,14 @@
 import { Link, useHistory } from 'react-router-dom';
 import Icon from '@/components/Icon';
 import styles from './index.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '@/store/actions/profile';
-import { useEffect } from 'react';
-import { RootState } from '@/types/store';
+import useInitalState from '@/utils/use-inital-state';
 
 const Profile = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const userInfo = useSelector((state: RootState) => state.profile.userInfo);
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
-
+  const {
+    state: { userInfo },
+  } = useInitalState(getUser, 'profile');
   return (
     <div className={styles.root}>
       <div className="profile">

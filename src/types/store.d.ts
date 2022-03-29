@@ -1,6 +1,6 @@
 import store from '@/store';
 import { ThunkAction } from 'redux-thunk';
-import { Token, User } from './data';
+import { Token, User, UserProfile } from './data';
 
 // store
 export type RootState = ReturnType<typeof store.getState>;
@@ -13,7 +13,12 @@ type LoginAction = {
   payload: Token;
 };
 
-type ProfileAction = {
-  type: 'profile/userInfo';
-  payload: User;
-};
+type ProfileAction =
+  | {
+    type: 'profile/userInfo';
+    payload: User;
+  }
+  | {
+    type: 'profile/getUserProfile';
+    payload: UserProfile;
+  };

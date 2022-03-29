@@ -25,3 +25,13 @@ export type User = {
   fans_count: number;
   like_count: number;
 };
+
+export type UserProfile = {
+  id: string
+  photo: string
+  name: string
+  mobile: string
+  gender: number
+  birthday: string
+  intro: string
+}
