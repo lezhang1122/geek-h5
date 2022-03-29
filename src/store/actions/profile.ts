@@ -14,3 +14,12 @@ export const getUserProfile = (): RootThunkAction => async dispatch => {
   const res = await request.get<ApiResponse<UserProfile>>('/user/profile');
   dispatch({ type: 'profile/getUserProfile', payload: res.data.data });
 };
+
+export const updateUserProfile =
+  (key: string, value: string): RootThunkAction =>
+    async dispatch => {
+      await request.patch('/user/profile', {
+        [key]: value,
+      });
+      dispatch(getUserProfile());
+    };

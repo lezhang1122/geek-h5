@@ -1,9 +1,10 @@
-import { getUserProfile } from '@/store/actions/profile';
+import { getUserProfile, updateUserProfile } from '@/store/actions/profile';
 import useInitalState from '@/utils/use-inital-state';
-import { List, Popup } from 'antd-mobile';
+import { List, Popup, Toast } from 'antd-mobile';
 import classNames from 'classnames';
 import { useState } from 'react';
-import EditInput from './EditInput'
+import { useDispatch } from 'react-redux';
+import EditInput from './EditInput';
 
 export type ModalType = '' | 'name' | 'intro';
 type ModalInfo = {
@@ -13,6 +14,7 @@ type ModalInfo = {
 const { Item } = List;
 const ProfileEdit = () => {
   const [modalInfo, setModalInfo] = useState<ModalInfo>({ type: '', isShow: false });
+  const dispatch = useDispatch();
   const {
     state: { userProfile },
   } = useInitalState(getUserProfile, 'profile');
@@ -20,6 +22,16 @@ const ProfileEdit = () => {
     setModalInfo({ type, isShow: true });
   };
   const closeEditModal = () => setModalInfo({ type: '', isShow: false });
+
+  const onUpdate = (key: ModalType, value: string) => {
+    dispatch(updateUserProfile(key, value));
+    Toast.show({
+      icon: 'success',
+      content: '修改成功',
+    });
+    closeEditModal();
+  };
+
   return (
     <div className="wrapper">
       {/* 列表 */}
@@ -58,8 +70,8 @@ const ProfileEdit = () => {
         </Item>
       </List>
 
-      <Popup visible={modalInfo.isShow} position="right">
-        <EditInput type={modalInfo.type} closeEditModal={closeEditModal}/>
+      <Popup visible={modalInfo.isShow} bodyStyle={{ height: '100%' }} position="right" destroyOnClose>
+        <EditInput type={modalInfo.type} closeEditModal={closeEditModal} onUpdate={onUpdate} />
       </Popup>
     </div>
   );
